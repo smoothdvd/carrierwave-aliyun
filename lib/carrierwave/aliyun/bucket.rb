@@ -70,7 +70,7 @@ module CarrierWave
             stream << file.read(CHUNK_SIZE) until file.eof?
           end
           if self.mode == :public_read
-            oss_upload_client.set_object_acl(path, Aliyun::OSS::ACL::PUBLIC_READ)
+            oss_upload_client.set_object_acl(path, ::Aliyun::OSS::ACL::PUBLIC_READ)
           end
           path_to_url(path)
         rescue => e
