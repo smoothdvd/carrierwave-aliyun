@@ -60,6 +60,9 @@ module CarrierWave
           bucket.put(path, fog_file, **headers)
           fog_file.close if fog_file && !fog_file.closed?
         end
+        if bucket.mode == :public_read
+          bucket.set_object_acl(path, Aliyun::OSS::ACL::PUBLIC_READ)
+        end
         true
       end
 
