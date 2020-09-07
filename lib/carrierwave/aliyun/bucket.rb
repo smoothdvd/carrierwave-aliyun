@@ -69,6 +69,9 @@ module CarrierWave
           oss_upload_client.put_object(path, headers: headers) do |stream|
             stream << file.read(CHUNK_SIZE) until file.eof?
           end
+          if self.mode == :public_read
+            oss_upload_client.set_object_acl(path, Aliyun::OSS::ACL::PUBLIC_READ)
+          end
           path_to_url(path)
         rescue => e
           raise "Put file failed: #{e}"
